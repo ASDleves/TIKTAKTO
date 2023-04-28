@@ -1,0 +1,47 @@
+body{
+    margin: 0;
+}
+main{
+    margin: auto;
+    display: grid;
+    grid-template-areas: "h h h"
+                         "s s s"
+                         "a a as"
+                         "f f f";
+    width: 80%;
+    max-width: 800px;
+}
+header{
+    background-color: orange;
+    grid-area: h;
+}
+section{
+    background-color: blue;
+    grid-area: s;
+}
+article{
+    background-color: green;
+    grid-area: a;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+aside{
+    background-color: purple;
+    grid-area: as;
+    color: white;
+}
+footer{
+    margin:auto;
+    grid-area: f;
+}
+.negyzet {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    cursor: pointer;
+    margin: 10px;
+}
