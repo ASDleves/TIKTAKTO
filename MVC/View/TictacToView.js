@@ -17,6 +17,7 @@ class TictactoView{
         }
         this.#allapot=false;
         });
+        
 }
 
     setElem(ertek){

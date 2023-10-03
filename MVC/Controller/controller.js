@@ -1,42 +1,41 @@
 import TictactoView from "../View/TictacToView.js";
 import InfoView from "../View/InfoView.js";
+import GameModel from "../Model/modell.js";
 
 class Controller {
-    #lepes;
+  constructor() {
+      const szuloElem = $("article");
+      const asideElem = $("aside");
+      const gameModel = new GameModel();
 
-    constructor() {
-        this.#lepes = 0;
-        const szuloElem = $("article");
-        const asideElem = $("aside");
+      const infoPanel = new InfoView(asideElem);
 
-        const infoPanel = new InfoView(asideElem);
+      const playerPTag = $(asideElem).find("p").first();
 
-        const playerPTag = $(asideElem).find("p").first();
-        const jatekfolyamat = infoPanel.updateGameStatus("A játék folyamatban");
-
-        for (let index = 0; index < 9; index++) {
-            const elem = new TictactoView(index, szuloElem);
-        }
-
-        $(window).on("elemKivalasztas", (event) => {
-          //modell szamolasok
-            if (this.#lepes % 2 === 0) {
-                event.detail.setElem("X");
-                playerPTag.text("Játékos: O");
-            } else {
-                event.detail.setElem("O");
-                playerPTag.text("Játékos: X");
-            }
-            this.#lepes++;
-            infoPanel.updateLepes(this.#lepes);
-
-            if (this.#lepes < 9) {
-                infoPanel.updateGameStatus("A játék folyamatban");
-            } else {
-                infoPanel.updateGameStatus("A játék vége!");
-            }
-        });
-    }
+      for (let index = 0; index < 9; index++) {
+          const elem = new TictactoView(index, szuloElem);
+      }
+      const pElement = $("#valtozas");
+      pElement.text("Játékos: Első lépés");
+      $(window).on("elemKivalasztas", (event) => {
+          const result = gameModel.makeMove();
+          
+          if (result) {
+              event.detail.setElem(result.currentPlayer);
+              playerPTag.text(`Játékos: ${result.currentPlayer}`);
+              infoPanel.updateKovi(); 
+              console.log('updateKovi called')
+              infoPanel.updateLepes(result.moves);
+              
+              if (result.isGameInProgress) {
+                  infoPanel.updateGameStatus("A játék folyamatban");
+              } else {
+                  infoPanel.updateGameStatus("A játék vége!");
+              }
+          }
+      });
+  }
 }
+
 
 export default Controller;
