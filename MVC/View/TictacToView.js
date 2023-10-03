@@ -1,4 +1,4 @@
-class Elem{
+class TictactoView{
     #allapot
     constructor(index, szuloElem){
         this.index = index;
@@ -29,4 +29,4 @@ class Elem{
         window.dispatchEvent(esemeny)
     }
 }
-export default Elem;
+export default TictactoView;

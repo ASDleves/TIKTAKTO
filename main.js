@@ -1,5 +1,5 @@
-import Jatekter from "./jatekter.js"
+import Controller from "./MVC/Controller/controller.js"
 
 $(function (){
-   new Jatekter()
+   new Controller()
 })
